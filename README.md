@@ -13,9 +13,10 @@ Goals:
 ## Usage 
 
 ## Resources
-optee_examples: https://github.com/linaro-swg/optee_examples
-optee_build: https://github.com/OP-TEE/build 
-optee-docs: https://optee.readthedocs.io/en/latest/general/about.html
+OP-TEE Docs:
+- optee_examples: https://github.com/linaro-swg/optee_examples
+- optee_build: https://github.com/OP-TEE/build 
+- optee-docs: https://optee.readthedocs.io/en/latest/general/about.html
 
 Other Help:
 - https://wiki.st.com/stm32mpu/wiki/How_to_develop_an_OP-TEE_Trusted_Application
