@@ -1,43 +1,27 @@
-export V ?= 0
+export V?=0
 
-OUTPUT_DIR := $(CURDIR)/out
-
-EXAMPLE_LIST := $(subst /,,$(dir $(wildcard */Makefile)))
+TARGET_DIR := $(notdir $(shell pwd))
 
 .PHONY: all
-all: examples prepare-for-rootfs
+all:
+	$(MAKE) -C ta \
+		CROSS_COMPILE=$(CROSS_COMPILE) \
+		TA_DEV_KIT_DIR=$(TA_DEV_KIT_DIR) \
+		O=$(O)/ta/$(TARGET_DIR)
+	$(MAKE) -C host \
+		CROSS_COMPILE=$(CROSS_COMPILE) \
+		OPTEE_CLIENT_EXPORT=$(OPTEE_CLIENT_EXPORT) \
+		O=$(O)/ca/$(TARGET_DIR) \
+		--no-builtin-variables
 
 .PHONY: clean
-clean: examples-clean prepare-for-rootfs-clean
-
-examples:
-	@for example in $(EXAMPLE_LIST); do \
-		$(MAKE) -C $$example CROSS_COMPILE="$(HOST_CROSS_COMPILE)" || exit 1; \
-	done
-
-examples-clean:
-	@for example in $(EXAMPLE_LIST); do \
-		$(MAKE) -C $$example clean || exit 1; \
-	done
-
-prepare-for-rootfs: examples
-	@echo "Copying example CA and TA binaries to $(OUTPUT_DIR)..."
-	@mkdir -p $(OUTPUT_DIR)
-	@mkdir -p $(OUTPUT_DIR)/ta
-	@mkdir -p $(OUTPUT_DIR)/ca
-	@mkdir -p $(OUTPUT_DIR)/plugins
-	@for example in $(EXAMPLE_LIST); do \
-		if [ -e $$example/host/optee_example_$$example ]; then \
-			cp -p $$example/host/optee_example_$$example $(OUTPUT_DIR)/ca/; \
-		fi; \
-		cp -pr $$example/ta/*.ta $(OUTPUT_DIR)/ta/; \
-		if [ $$example = plugins ]; then \
-			cp -p plugins/syslog/*.plugin $(OUTPUT_DIR)/plugins/; \
-		fi; \
-	done
-
-prepare-for-rootfs-clean:
-	@rm -rf $(OUTPUT_DIR)/ta
-	@rm -rf $(OUTPUT_DIR)/ca
-	@rm -rf $(OUTPUT_DIR)/plugins
-	@rmdir --ignore-fail-on-non-empty $(OUTPUT_DIR) || test ! -e $(OUTPUT_DIR)
+clean:
+	$(MAKE) -C ta \
+		TA_DEV_KIT_DIR=$(TA_DEV_KIT_DIR) \
+		O=$(O)/ta/$(TARGET_DIR) \
+		clean
+	$(MAKE) -C host \
+		OPTEE_CLIENT_EXPORT=$(OPTEE_CLIENT_EXPORT) \
+		O=$(O)/ca/$(TARGET_DIR) \
+		clean
+	rm -rf $(O)/ca/$(TARGET_DIR)
