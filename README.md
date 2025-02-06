@@ -11,6 +11,10 @@ Note:
 Packages I couldn't install
 - netcat (installed subversions of netcat)
 - lilibftdi-dev
+
+
+
+
 --->
 
 ## Introduction
@@ -31,6 +35,25 @@ Note: These setup steps are for the Jetson Orin Nano Board
 9.  Then continue this from __Building the OPTEE dtb__ on down in this [link](https://developer.ridgerun.com/wiki/index.php/Implementation_of_a_Trusted_Application_using_OP-TEE_and_JetPack5.1)
 
 ## Usage 
+This is how I would compile the app from __my__ file structure. Yours may be a little different at the top depending on where you placed everything. I put it in `/opt`.
+
+1. Copy the development folder into:
+`cp -r optee_logger /opt/Jetson_LinuxR35.4.1_aarch64/Linux_for_Tegra/sources/tegra/optee-src/nv-optee/optee/samples/`
+2. Move into the folder where `optee_src_build.sh` is:
+`cd /opt/Jetson_LinuxR35.4.1_aarch64/Linux_for_Tegra/sources/tegra/optee-src/nv-optee/`
+3. Run the build:
+`./optee_src_build.sh -p t234`
+4. Find the executable files here:
+`cd /opt/Jetson_LinuxR35.4.1_aarch64/Linux_for_Tegra/sources/tegra/optee-src/nv-optee/optee/install/t234/usr/sbin`
+5. Find the ta files here:
+`cd /opt/Jetson_LinuxR35.4.1_aarch64/Linux_for_Tegra/sources/tegra/optee-src/nv-optee/optee/build/t234/ta/`
+6. Transfer all those files into the Jetson Board
+
+In our case, our Jetson board is structured where we place the specific files here...
+- Place the executable in `/usr/sbin`
+- Place the ta files in `/lib/optee_armtz5`
+
+Then run the executable with `sudo ./optee_logger`
 
 ## Resources
 OP-TEE Docs:
