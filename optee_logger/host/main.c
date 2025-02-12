@@ -33,7 +33,10 @@
 #include <tee_client_api.h>
 
 /* For the UUID (found in the TA's h-file(s)) */
-#include <hello_world_ta.h>
+// #include <hello_world_ta.h>
+//CHANGING THE HEADER FILE NAME IN TA's .h FILE
+#include <optee_logger_ta.h>
+
 
 int main(void)
 {
@@ -41,7 +44,9 @@ int main(void)
 	TEEC_Context ctx;
 	TEEC_Session sess;
 	TEEC_Operation op;
-	TEEC_UUID uuid = TA_HELLO_WORLD_UUID;
+	//TEEC_UUID uuid = TA_HELLO_WORLD_UUID;
+	//CHANGING THE UUID NAME IN THE OPTEE_LOGGER
+	TEEC_UUID uuid = TA_OPTEE_LOGGER_UUID;
 	uint32_t err_origin;
 
 	/* Initialize a context connecting us to the TEE */
@@ -83,7 +88,7 @@ int main(void)
 	 * called.
 	 */
 	printf("Invoking TA to increment %d\n", op.params[0].value.a);
-	res = TEEC_InvokeCommand(&sess, TA_HELLO_WORLD_CMD_INC_VALUE, &op,
+	res = TEEC_InvokeCommand(&sess, TA_OPTEE_LOGGER_CMD_INC_VALUE, &op, //CHANGED OPTEE_LOGGER COMMAND NAME
 				 &err_origin);
 	if (res != TEEC_SUCCESS)
 		errx(1, "TEEC_InvokeCommand failed with code 0x%x origin 0x%x",

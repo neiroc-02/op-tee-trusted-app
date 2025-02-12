@@ -7,7 +7,9 @@ LDADD += -lteec -L$(OPTEE_CLIENT_EXPORT)/lib
 
 SRCS = main.c
 OBJS = $(patsubst %.c,$(O)/%.o,$(SRCS))
-BINARY = optee_example_hello_world
+
+#BINARY = optee_example_hello_world
+BINARY = optee_logger
 
 .PHONY: all install
 all: $(BINARY) install

@@ -24,9 +24,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+/*
 #ifndef TA_HELLO_WORLD_H
 #define TA_HELLO_WORLD_H
-
+*/
+#ifndef TA_OPTEE_LOGGER_H	//CHANGED HEADER GUARDS
+#define TA_OPTEE_LOGGER_H
 
 /*
  * This UUID is generated with uuidgen
@@ -34,16 +38,12 @@
  */
 
 //NOTE: CHANGED BINARY HERE!!!
-#define TA_HELLO_WORLD_UUID \
+#define TA_OPTEE_LOGGER_UUID \
 	{ 0x3d969d36, 0xf8fb, 0x4e45, \
 		{ 0xaf, 0xe4, 0xde, 0xbe, 0xfd, 0x16, 0xba, 0x0e} }
 
-//#define TA_HELLO_WORLD_UUID \
-	{ 0x8aaaf200, 0x2450, 0x11e4, \
-		{ 0xab, 0xe2, 0x00, 0x02, 0xa5, 0xd5, 0xc5, 0x1b} }
-
 /* The function IDs implemented in this TA */
-#define TA_HELLO_WORLD_CMD_INC_VALUE		0
-#define TA_HELLO_WORLD_CMD_DEC_VALUE		1
+#define TA_OPTEE_LOGGER_CMD_INC_VALUE		0			// CHANGED THE NAME OF THE FUNCTIONS
+#define TA_OPTEE_LOGGER_CMD_DEC_VALUE		1
 
 #endif /*TA_HELLO_WORLD_H*/
