@@ -54,14 +54,15 @@
 #define TA_VERSION	"1.0"
 
 /* The gpd.ta.description property */
-#define TA_DESCRIPTION	"Example of OP-TEE Hello World Trusted Application"
+#define TA_DESCRIPTION	"OP-TEE Logger Trusted Application"
 
 /* Extra properties */
+
 #define TA_CURRENT_TA_EXT_PROPERTIES \
     { "org.linaro.optee.examples.hello_world.property1", \
 	USER_TA_PROP_TYPE_STRING, \
         "Some string" }, \
     { "org.linaro.optee.examples.hello_world.property2", \
-	USER_TA_PROP_TYPE_U32, &(const uint32_t){ 0x0010 } }
+	USER_TA_PROP_TYPE_U32, &(const uint32_t){ 0x0010 } } 
 
 #endif /* USER_TA_HEADER_DEFINES_H */
